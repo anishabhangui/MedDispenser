@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+
+    <TextView
+        android:id="@+id/mednametv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="Enter Medication Name:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/mednameinput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:hint="Medication Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mednametv" />
+
+    <TextView
+        android:id="@+id/timetv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="4dp"
+        android:text="Enter Time:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mednameinput" />
+
+    <EditText
+        android:id="@+id/timeinput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:hint="Time"
+        android:inputType="datetime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timetv" />
+
+    <TextView
+        android:id="@+id/numpilltv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="4dp"
+        android:text="Enter # of Pills to Take:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timeinput" />
+
+    <EditText
+        android:id="@+id/numbpillinput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:hint="# of Pills:"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numpilltv" />
+
+    <TextView
+        android:id="@+id/bintv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:text="Bin Number in Dispesner:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/numbpillinput"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+    <EditText
+        android:id="@+id/binnumbinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:hint="Bin Number"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@id/pickdaytv"
+        app:layout_constraintTop_toBottomOf="@id/bintv"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/pickdaytv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:text="Pick Days to Take Pill"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/binnumbinput" />
+
+    <Button
+        android:id="@+id/monday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:text="M"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pickdaytv" />
+
+    <Button
+        android:id="@+id/tuesday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:text="T"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintLeft_toRightOf="@id/monday"
+        app:layout_constraintTop_toBottomOf="@+id/pickdaytv" />
+
+    <Button
+        android:id="@+id/wednesday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="W"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintLeft_toRightOf="@id/tuesday"
+        app:layout_constraintTop_toBottomOf="@+id/pickdaytv" />
+
+    <Button
+        android:id="@+id/thursday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:text="R"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintLeft_toRightOf="@id/wednesday"
+        app:layout_constraintTop_toBottomOf="@+id/pickdaytv" />
+
+    <Button
+        android:id="@+id/friday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:text="F"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monday" />
+
+    <Button
+        android:id="@+id/saturday"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Sat"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintLeft_toRightOf="@+id/friday"
+        app:layout_constraintTop_toBottomOf="@id/tuesday" />
+
+    <Button
+        android:id="@+id/sunday"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Sun"
+        app:backgroundTint="@color/button_unclick"
+        app:layout_constraintLeft_toRightOf="@+id/saturday"
+        app:layout_constraintTop_toBottomOf="@+id/monday" />
+
+    <Button
+        android:id="@+id/addbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="136dp"
+        android:gravity="center"
+        android:text="Submit"
+        app:backgroundTint="#A85F5F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saturday" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

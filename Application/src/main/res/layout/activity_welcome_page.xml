@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomePage">
+
+    <Button
+        android:id="@+id/addmedbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:insetTop="6dp"
+        android:text="Add Medication"
+        app:backgroundTint="#BF8E8E" />
+
+    <Button
+        android:id="@+id/medschedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addmedbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Medication Schedule"
+        app:backgroundTint="#BF8E8E" />
+
+    <Button
+        android:id="@+id/bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medschedule"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Bluetooth Pairing"
+        app:backgroundTint="#BDB7B7" />
+
+</RelativeLayout>
