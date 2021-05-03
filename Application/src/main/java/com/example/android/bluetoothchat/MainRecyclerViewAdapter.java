@@ -194,6 +194,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_add)
                 .setContentTitle("Medication: " + item)
                 .setContentText("It's time to take your medication!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
