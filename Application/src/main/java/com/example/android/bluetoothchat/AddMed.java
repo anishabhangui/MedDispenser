@@ -77,7 +77,7 @@ public class AddMed extends Activity {
                         public void onTimeSet(TimePicker tp, int hour, int minute) {
                             if ((hour >= 1) && (hour <= 11.59)) {
                                 am_pm = "AM";
-                            } else if (hour >= 12) {
+                            } else if (hour > 12) {
                                 hour = hour - 12;
                                 am_pm = "PM";
                             } else if (hour == 0) {
