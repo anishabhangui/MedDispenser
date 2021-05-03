@@ -66,7 +66,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         //Log.d("monday time", med_monday.get(0).getmTime());
         //Log.d("size",String.valueOf(med_monday.size()));
         //Log.d("current time", currentTime);
-        switch (day) {
+       /* switch (day) {
             case Calendar.MONDAY:
                 if(nameofday.equals("Monday")&&weekList.get(0).mMedItems.size()!=0){
                     ArrayList<medinfo> med_monday = weekList.get(0).mMedItems;
@@ -167,7 +167,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                 }
                 break;
 
-        }
+        }*/
 
     }
     @Override
@@ -175,7 +175,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         return weekList.size();
     }
 
-    private void CreateMedNotification(String item, int id) {
+/*    private void CreateMedNotification(String item, int id) {
 
         NotificationManager notificationManager =(NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
@@ -201,8 +201,8 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-        notificationManager.notify(/*notification id*/id, notificationBuilder.build());
-    }
+        notificationManager.notify(*//*notification id*//*id, notificationBuilder.build());
+    }*/
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView weekdayname;

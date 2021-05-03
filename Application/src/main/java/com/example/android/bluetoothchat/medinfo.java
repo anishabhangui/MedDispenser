@@ -13,7 +13,7 @@ public class medinfo {
         mTime = timeformed;
         mNumbPills = numberpills;
         mBinNumb = binnumb;
-        mNotificationShow = true;
+        //mNotificationShow = true;
 
 
     }
@@ -46,7 +46,8 @@ public class medinfo {
 
     public void setmBinNumb(String mBinNumb) { this.mBinNumb = mBinNumb; }
 
-    public boolean getNotificationShow(){return mNotificationShow;}
 
-    public void setNotificationShow(boolean show){this.mNotificationShow=show;}
+    /*public boolean getNotificationShow(){return mNotificationShow;}
+
+    public void setNotificationShow(boolean show){this.mNotificationShow=show;}*/
 }

@@ -294,10 +294,6 @@ public class MedicationSchedule extends Activity  {
         return myQuittingDialogBox;
     }
 
-
-
-
-
     public void initdata(){
         if(dw.charAt(1)=='1'){
             String monday = "Monday";

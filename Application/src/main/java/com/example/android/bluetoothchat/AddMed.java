@@ -1,10 +1,19 @@
 package com.example.android.bluetoothchat;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +22,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddMed extends Activity {
     private EditText medname;
@@ -31,7 +43,9 @@ public class AddMed extends Activity {
     private Button saturday;
     private Button sunday;
     private String am_pm;
+    private Calendar c = Calendar.getInstance();
     int[] dayofweek = new int[]{0, 0, 0, 0, 0, 0, 0};
+    public static String mednamestring;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +68,6 @@ public class AddMed extends Activity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(AddMed.INPUT_METHOD_SERVICE);
-                    //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
@@ -75,6 +88,11 @@ public class AddMed extends Activity {
                     timepicker = new TimePickerDialog(AddMed.this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker tp, int hour, int minute) {
+                          //Calendar c = Calendar.getInstance();
+                            c.set(Calendar.HOUR_OF_DAY, hour);
+                            c.set(Calendar.MINUTE,minute);
+                            c.set(Calendar.SECOND,0);
+                            startAlarm(c);
                             if ((hour >= 1) && (hour <= 11.59)) {
                                 am_pm = "AM";
                             } else if (hour > 12) {
@@ -95,7 +113,6 @@ public class AddMed extends Activity {
                         }
                     }, hour, minutes, false);
                     timepicker.show();
-
                 }
             }
         });
@@ -133,10 +150,32 @@ public class AddMed extends Activity {
         btnsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mednamestring = medname.getText().toString();
+                mednamestring = medname.getText().toString();
                 String timestring = medtime.getText().toString();
                 String numbpillstring = numberofpills.getText().toString();
                 String binnumb = binnumber.getText().toString();
+                if(dayofweek[0]==1){
+                    forDay(2);
+                }
+                if(dayofweek[1]==1){
+                    forDay(3);
+                }
+                if(dayofweek[2]==1){
+                    forDay(4);
+                }
+                if(dayofweek[3]==1){
+                    forDay(5);
+                }
+                if(dayofweek[4]==1){
+                    forDay(6);
+                }
+                if(dayofweek[5]==1){
+                    forDay(7);
+                }
+                if(dayofweek[6]==1){
+                    forDay(1);
+                }
+                startAlarm(c);
                 //pass user information to medlist activity
                 Intent toMedList = new Intent(getApplicationContext(), MedicationSchedule.class);
                 toMedList.putExtra("medItem", mednamestring);
@@ -148,11 +187,51 @@ public class AddMed extends Activity {
                 finish();
                 Log.d("dayofweek", "Med Info" + Arrays.toString(dayofweek));
 
-
-                //Intent toAdapter = new Intent(getApplicationContext(),MainActivity.class);
-
             }
         });
+    }
+
+    public void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this,AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1,intent,0);
+        if(c.before(Calendar.getInstance())){
+            c.add(Calendar.DATE,1);
+        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),1 * 60 * 60 * 1000,pendingIntent);
+    }
+
+   /* private void CreateMedNotification(String item, int id) {
+
+        NotificationManager notificationManager =(NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "my_channel";
+            String description = "Med Channel";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Intent intent = new Intent(this, MedicationSchedule.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_pill)
+                .setContentTitle("Medication: " + item)
+                .setContentText("Your medication will now be dispensed!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        notificationManager.notify(*//*notification id*//*id, notificationBuilder.build());
+    }*/
+
+    public void forDay(int week){
+        c.set(Calendar.DAY_OF_WEEK,week);
     }
 
     public class Clik implements View.OnClickListener {
