@@ -15,16 +15,19 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MedicationSchedule extends Activity  {
@@ -42,7 +45,7 @@ public class MedicationSchedule extends Activity  {
     private ArrayList<medinfo> fridayitems = new ArrayList<>();
     private ArrayList<medinfo> saturdayitems = new ArrayList<>();
     private ArrayList<medinfo> sundayitems = new ArrayList<>();
-    private ImageButton btnaddmed, btnhome, btnclear;
+    private BottomNavigationView bnv;
     private String med;
     private String time;
     private String pillnumber;
@@ -76,35 +79,28 @@ public class MedicationSchedule extends Activity  {
             buildRecyclerView();
         }
 
-        btnaddmed = findViewById(R.id.addButton);
-        btnaddmed.setOnClickListener(new View.OnClickListener() {
+        bnv = findViewById(R.id.bottomnav);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog dialog = AskAdd();
-                dialog.show();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.addButton:
+                        AlertDialog dialog_add = AskAdd();
+                        dialog_add.show();
+                        break;
+                    case R.id.homebutton:
+                        Intent intent = new Intent(MedicationSchedule.this, WelcomePage.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.clearallbutton:
+                        AlertDialog diaBox = AskDelete();
+                        diaBox.show();
+                        break;
+                }
+                return true;
             }
         });
 
-        btnhome = findViewById(R.id.homebutton);
-        btnhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog dialog = AskHome();
-                dialog.show();
-            }
-        });
-
-        btnclear = findViewById(R.id.clearallbutton);
-        btnclear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog diaBox = AskDelete();
-                diaBox.show();
-            }
-        });
-
-     /*   ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeItem(medicationAdapter));
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);*/
     }
 
     public void saveData(){
@@ -198,6 +194,23 @@ public class MedicationSchedule extends Activity  {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 && bnv.isShown()) {
+                    bnv.setVisibility(View.GONE);
+                } else if (dy < 0 ) {
+                    bnv.setVisibility(View.VISIBLE);
+
+                }
+            }
+    });
+
     }
 
     public void loadDatainit(){
@@ -258,30 +271,6 @@ public class MedicationSchedule extends Activity  {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Intent intent = new Intent(MedicationSchedule.this, AddMed.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        return myQuittingDialogBox;
-    }
-
-    private AlertDialog AskHome(){
-
-        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
-                // set message, title, and icon
-                .setTitle("Return to Home Screen")
-                .setMessage("Do you want to go back to the home screen?")
-                .setIcon(R.mipmap.ic_home)
-
-                .setPositiveButton("Home", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Intent intent = new Intent(MedicationSchedule.this, WelcomePage.class);
                         startActivity(intent);
                     }
                 })

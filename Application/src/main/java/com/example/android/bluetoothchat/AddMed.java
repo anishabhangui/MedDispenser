@@ -201,34 +201,6 @@ public class AddMed extends Activity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),1 * 60 * 60 * 1000,pendingIntent);
     }
 
-   /* private void CreateMedNotification(String item, int id) {
-
-        NotificationManager notificationManager =(NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "my_channel";
-            String description = "Med Channel";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        Intent intent = new Intent(this, MedicationSchedule.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_pill)
-                .setContentTitle("Medication: " + item)
-                .setContentText("Your medication will now be dispensed!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        notificationManager.notify(*//*notification id*//*id, notificationBuilder.build());
-    }*/
 
     public void forDay(int week){
         c.set(Calendar.DAY_OF_WEEK,week);

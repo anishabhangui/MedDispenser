@@ -1,5 +1,10 @@
 package com.example.android.bluetoothchat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
 public class medinfo {
     private String mMedName;
     private String mTime;
@@ -13,10 +18,32 @@ public class medinfo {
         mTime = timeformed;
         mNumbPills = numberpills;
         mBinNumb = binnumb;
-        //mNotificationShow = true;
-
-
     }
+
+    public static Comparator<medinfo> MedTimeCompare = new Comparator<medinfo>() {
+        @Override
+        public int compare(medinfo m1, medinfo m2) {
+            int comp = 0;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                Date d1 = sdf.parse(m1.getmTime());
+                Date d2 = sdf.parse(m2.getmTime());
+                if(d1==d2){
+                    comp=0;
+                }
+                else if(d1.after(d2)){
+                    comp=1;
+                }
+                else
+                   comp=-1;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            return comp;
+
+        }
+    };
 
     public String getmMedName() {
         return mMedName;

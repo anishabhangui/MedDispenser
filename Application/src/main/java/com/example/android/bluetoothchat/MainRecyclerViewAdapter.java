@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -51,6 +52,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         ArrayList<medinfo> meditems = section.getmMedItems();
         holder.weekdayname.setText(nameofday);
         MedicationAdapter childrecyclerAdapter = new MedicationAdapter(meditems);
+        Collections.sort(meditems,medinfo.MedTimeCompare);
         holder.childrecyclerview.setAdapter(childrecyclerAdapter);
         mItemTouchHelper = new ItemTouchHelper(new SwipeItem(childrecyclerAdapter));
 

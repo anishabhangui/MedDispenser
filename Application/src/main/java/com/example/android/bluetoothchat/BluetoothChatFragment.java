@@ -18,9 +18,11 @@ package com.example.android.bluetoothchat;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.android.common.logger.Log;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * This fragment controls Bluetooth to communicate with other devices.
@@ -63,11 +66,12 @@ public class BluetoothChatFragment extends Fragment {
     private static final int REQUEST_ENABLE_BT = 3;
 
     // Layout Views
-    private TextView textViewReceived;
+    //private TextView textViewReceived;
     private Toolbar toolbar;
     private EditText mOutEditText;
     private Button mSendButton;
-    private String receiveBuffer = "";
+    private BottomNavigationView bnv;
+    //private String receiveBuffer = "";
 
 
     /**
@@ -106,6 +110,7 @@ public class BluetoothChatFragment extends Fragment {
         }
 
         //mSharedPreferences = this.getActivity().getSharedPreferences("all items", Context.MODE_PRIVATE);
+
 
     }
 
@@ -158,10 +163,26 @@ public class BluetoothChatFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        textViewReceived = view.findViewById(R.id.textViewReceived);
+        //textViewReceived = view.findViewById(R.id.textViewReceived);
         mSendButton = view.findViewById(R.id.button_send);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-
+        bnv = view.findViewById(R.id.bottomnav);
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.addButton:
+                        AlertDialog dialog_add = AskAdd();
+                        dialog_add.show();
+                        break;
+                    case R.id.homebutton:
+                        Intent intent = new Intent(getActivity(), WelcomePage.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
 
 
 
@@ -309,12 +330,12 @@ public class BluetoothChatFragment extends Fragment {
         actionBar.setSubtitle(subTitle);
     }
 
-    private void messageHandler()
+/*    private void messageHandler()
     {
         if (receiveBuffer != null) {
             textViewReceived.setText("Received: " + receiveBuffer);
         }
-    }
+    }*/
 
     /**
      * The Handler that gets information back from the BluetoothChatService
@@ -328,7 +349,7 @@ public class BluetoothChatFragment extends Fragment {
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
                             setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
-                            textViewReceived.setText("Received:");
+                            //textViewReceived.setText("Received:");
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
                             setStatus(R.string.title_connecting);
@@ -345,12 +366,12 @@ public class BluetoothChatFragment extends Fragment {
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    receiveBuffer += readMessage;
+                   /* receiveBuffer += readMessage;
                     if(receiveBuffer.contains("\n")) {
                         receiveBuffer = receiveBuffer.substring(0, receiveBuffer.length() - 1);
                         messageHandler();
                         receiveBuffer = "";
-                    }
+                    }*/
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -369,6 +390,7 @@ public class BluetoothChatFragment extends Fragment {
             }
         }
     };
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -400,6 +422,30 @@ public class BluetoothChatFragment extends Fragment {
                     }
                 }
         }
+    }
+
+    private AlertDialog AskAdd(){
+
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getActivity())
+                // set message, title, and icon
+                .setTitle("Add New Medication")
+                .setMessage("Do you want to add a new medication?")
+                .setIcon(R.mipmap.ic_add)
+
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Intent intent = new Intent(getActivity(), AddMed.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
     }
 
     /**
