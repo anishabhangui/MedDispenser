@@ -3,6 +3,7 @@ package com.example.android.bluetoothchat;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -31,6 +32,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     private Context mContext;
     ItemTouchHelper mItemTouchHelper;
 
+
     public MainRecyclerViewAdapter(Context mContext, ArrayList<DayHeader> weekList, ItemTouchHelper itemTouchHelper) {
         this.mContext = mContext;
         this.weekList = weekList;
@@ -51,12 +53,11 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         String nameofday = section.getDayName();
         ArrayList<medinfo> meditems = section.getmMedItems();
         holder.weekdayname.setText(nameofday);
-        MedicationAdapter childrecyclerAdapter = new MedicationAdapter(meditems);
+        MedicationAdapter childrecyclerAdapter = new MedicationAdapter(meditems,mContext);
         Collections.sort(meditems,medinfo.MedTimeCompare);
         holder.childrecyclerview.setAdapter(childrecyclerAdapter);
         mItemTouchHelper = new ItemTouchHelper(new SwipeItem(childrecyclerAdapter));
 
-        //String time_test = meditems.get(3).getmTime();
 
 
         Calendar calendar = Calendar.getInstance();
@@ -206,6 +207,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         notificationManager.notify(*//*notification id*//*id, notificationBuilder.build());
     }*/
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView weekdayname;
         RecyclerView childrecyclerview;
@@ -215,7 +217,6 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             weekdayname = itemView.findViewById(R.id.weekdayheader);
             childrecyclerview = itemView.findViewById(R.id.childrecyclerview);
             mItemTouchHelper.attachToRecyclerView(childrecyclerview);
-
         }
     }
 }

@@ -22,5 +22,6 @@ public class SwipeItem extends ItemTouchHelper.SimpleCallback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getBindingAdapterPosition();
         this.mMedAdapter.removeItem(position);
+        mMedAdapter.notifyDataSetChanged();
     }
 }

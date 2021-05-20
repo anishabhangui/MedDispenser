@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
 public class MedicationSchedule extends Activity  {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -53,6 +54,8 @@ public class MedicationSchedule extends Activity  {
     private String dw;
     private int[] dayofweek;
     private ItemTouchHelper itemTouchHelper;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,9 @@ public class MedicationSchedule extends Activity  {
             }
         });
 
+
     }
+
 
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences",MODE_PRIVATE);
@@ -182,9 +187,9 @@ public class MedicationSchedule extends Activity  {
         if(sundayitems == null) {
             sundayitems = new ArrayList<>();
         }
-        //Log.d("mon",json_monday);
-
     }
+
+
 
     public void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerView);
